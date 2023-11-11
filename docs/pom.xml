@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+  <parent>
+    <groupId>ch.pricemeier.activefitnessplans</groupId>
+    <artifactId>app</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+  </parent>
+
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>docs</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>unofficial-d2lang-maven-plugin</artifactId>
+        <groupId>ch.pricemeier</groupId>
+        <executions>
+          <execution>
+            <id>Build d2 diagrams</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>build-diagrams</goal>
+            </goals>
+            <configuration>
+              <inputPath>${basedir}/d2_diagrams_input</inputPath>
+              <outputPath>${basedir}/active-fitness-plans/static/d2_images</outputPath>
+              <d2langBinaryPath>${basedir}/binaries/d2.exe</d2langBinaryPath>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <artifactId>exec-maven-plugin</artifactId>
+        <groupId>org.codehaus.mojo</groupId>
+        <executions>
+          <execution>
+            <id>Build docs</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <workingDirectory>${basedir}/active-fitness-plans</workingDirectory>
+              <executable>../binaries/hugo</executable>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>
